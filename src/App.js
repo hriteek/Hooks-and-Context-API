@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import { store } from "./store";
+import "./App.css";
 
-function App() {
+// Our store context can be accessed from any component in the component tree. To do this, we;ll import useContext Hook from react and the store from our ./store.js file
+const App = () => {
+  const globalState = useContext(store);
+  const { state, dispatch } = globalState;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello {state.name}</h1>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: "CHANGE_NAME", payload: "World" })}
+      >
+        Click Me
+      </button>
     </div>
   );
-}
+};
 
 export default App;
